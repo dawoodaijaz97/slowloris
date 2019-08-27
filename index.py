@@ -19,15 +19,15 @@ def create_connection(min_port):
             my_socket.send(data.encode())
             connections.append(my_socket)
 
-        except socket.error as msg:
-            print(f"Socket Error:{msg}")
+        except socket.error:
+            print(f"Socket Error")
             my_socket.close()
 
 
     def send_data():
         for x in connections:
             x.send(data.encode())
-        time.sleep(15)
+        time.sleep(10)
         send_data()
 
     send_data()
