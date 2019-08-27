@@ -32,6 +32,8 @@ def create_connection(min_port):
         for x in connections:
             try:
                 x.send(data.encode())
+                receive_data = x.recv(1024)
+                print(receive_data)
             except socket.error as msg:
                 print(f"Error Sending{msg}")
         time.sleep(10)
