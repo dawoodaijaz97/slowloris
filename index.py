@@ -5,7 +5,7 @@ import multiprocessing
 no_of_process = 3
 list_process = []
 host = "35.193.17.254"
-port = 80
+port = 8080
 
 
 def create_connection(min_port):
@@ -20,7 +20,7 @@ def create_connection(min_port):
             connections.append(my_socket)
 
         except socket.error as msg:
-            print(f"Socker Error:{msg}")
+            print(f"Socket Error:{msg}")
         finally:
             my_socket.close()
 
