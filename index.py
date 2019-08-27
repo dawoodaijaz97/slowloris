@@ -25,8 +25,8 @@ def create_connection(min_port):
             my_socket.close()
 
     def send_data():
-        for x in range(min_port, min_port + 100):
-            connections[x].send(data.encode())
+        for x in connections:
+            x.send(data.encode())
         time.sleep(15)
         send_data()
 
