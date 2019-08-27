@@ -1,6 +1,8 @@
 import socket
 import time
 import multiprocessing
+import os
+
 
 no_of_process = 3
 list_process = []
@@ -14,6 +16,8 @@ def create_connection(min_port):
     for i in range(min_port, min_port + 100):
         my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
+            pid = os.getpid()
+            print(f"Connecting from Process{pid} Port{i}")
             my_socket.bind(("", i))
             my_socket.connect((host, port))
             my_socket.send(data.encode())
@@ -26,7 +30,10 @@ def create_connection(min_port):
 
     def send_data():
         for x in connections:
-            x.send(data.encode())
+            try:
+                x.send(data.encode())
+            except socket.error as msg:
+                print(f"Error Sending{msg}")
         time.sleep(10)
         send_data()
 
