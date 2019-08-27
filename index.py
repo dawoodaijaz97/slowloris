@@ -21,8 +21,8 @@ def create_connection(min_port):
 
         except socket.error as msg:
             print(f"Socket Error:{msg}")
-        finally:
             my_socket.close()
+
 
     def send_data():
         for x in connections:
