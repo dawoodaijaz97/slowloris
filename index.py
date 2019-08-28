@@ -5,7 +5,7 @@ import os
 
 no_of_process = 3
 list_process = []
-host = "35.193.17.254"
+host = "144.217.100.106"
 port = 8080
 
 
