@@ -1,28 +1,20 @@
 from scapy.all import *
 
+im
 seq = 12345
+dest = "35.193.17.254"
 sport = 1040
 dport = 8080
+syn = IP(dst=dest) / TCP(dport=80, flags='S')
 
-ip_packet = IP(dst='35.193.17.254')
-syn_packet = TCP(sport=sport, dport=dport, flags='S')
+# GET SYNACK
+syn_ack = sr1(syn)
+# Send ACK
+out_ack = send(
+    IP(dst=dest) / TCP(dport=80, sport=syn_ack[TCP].dport, seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1, flags='A'))
 
-packet = ip_packet/syn_packet
-synack_response = sr1(packet)
-
-print(synack_response.__repr__())
-
-next_seq = seq + 1
-my_ack = synack_response.seq + 1
-
-ack_packet = TCP(sport=sport, dport=dport, flags='A', seq=next_seq, ack=my_ack)
-
-send(ip_packet/ack_packet)
-
-payload_packet = TCP(sport=sport, dport=dport, flags='A', seq=next_seq, ack=my_ack)
-payload = "GET / HTTP/1.0 \r\n\r\n"
-
-reply, error = sr(ip_packet/payload_packet/payload, multi=1, timeout=1)
-for r in reply:
-    r[0].show2()
-    r[1].show2()
+# Send the HTTP GET
+getStr = 'GET / HTTP/1.1\r\nHost:' + dest + '\r\nAccept-Encoding: gzip, deflate\r\n\r\n'
+reply = sr1(IP(dst=dest) / TCP(dport=80, sport=syn_ack[TCP].dport, seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1,
+                               flags='P''A') / getStr)
+print(reply.__repr__())
