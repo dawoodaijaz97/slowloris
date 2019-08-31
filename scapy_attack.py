@@ -15,5 +15,4 @@ req = HTTP()/HTTPRequest(
 a = TCP_client.tcplink(HTTP,"35.193.17.254", 80)
 answser = a.sr1(req)
 a.close()
-with open("www.secdev.org.html", "wb") as file:
-    file.write(answser.load)
+print(answser.encode("utf-8"))
