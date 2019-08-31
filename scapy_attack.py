@@ -12,7 +12,7 @@ req = HTTP()/HTTPRequest(
     Host=b'www.secdev.org',
     Pragma=b'no-cache'
 )
-a = TCP_client.tcplink(HTTP,"35.193.17.254", 80)
+a = TCP_client.tcplink(HTTP,"35.193.17.254", 8080)
 answser = a.sr1(req)
 a.close()
 print(answser.encode("utf-8"))
