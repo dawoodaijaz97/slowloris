@@ -5,6 +5,8 @@ x = "instance2mymachines.xyz"
 y = "www.instance2mymachines.xyz"
 
 load_layer("http")
+
+http_request(y, "/", display=True)
 req = HTTP()/HTTPRequest(
     Accept_Encoding=b'gzip, deflate',
     Cache_Control=b'no-cache',
