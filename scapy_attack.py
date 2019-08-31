@@ -4,8 +4,16 @@ import random
 x = "instance2mymachines.xyz"
 y = "www.instance2mymachines.xyz"
 
-request = "GET / HTTP/1.1\r\nHost: " + y + "\r\n\r\n"
-p = IP(dst=x) / TCP(dport=8080) / request
-out = sr1(p)
-if out:
-    out.show()
+load_layer("http")
+req = HTTP()/HTTPRequest(
+    Accept_Encoding=b'gzip, deflate',
+    Cache_Control=b'no-cache',
+    Connection=b'keep-alive',
+    Host=b'www.instance2mymachines.xyz',
+    Pragma=b'no-cache'
+)
+a = TCP_client.tcplink(HTTP,y, 8080)
+answser = a.sr1(req)
+a.close()
+with open("www.instance2mymachines.xyz.html", "wb") as file:
+    file.write(answser.load)
