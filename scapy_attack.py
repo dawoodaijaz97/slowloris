@@ -4,7 +4,7 @@ seq = 12345
 sport = 1040
 dport = 80
 
-ip_packet = IP(dst='144.217.100.106')
+ip_packet = IP(dst='35.193.17.254')
 syn_packet = TCP(sport=sport, dport=dport, flags='S', seq=seq)
 
 packet = ip_packet/syn_packet
@@ -18,7 +18,7 @@ ack_packet = TCP(sport=sport, dport=dport, flags='A', seq=next_seq, ack=my_ack)
 send(ip_packet/ack_packet)
 
 payload_packet = TCP(sport=sport, dport=dport, flags='A', seq=next_seq, ack=my_ack)
-payload = "GET / HTTP/1.0\r\nHOST: 144.217.100.106\r\n\r\n"
+payload = "GET / HTTP/1.0\r\nHOST: 35.193.17.254\r\n\r\n"
 
 reply, error = sr(ip_packet/payload_packet/payload, multi=1, timeout=1)
 for r in reply:
