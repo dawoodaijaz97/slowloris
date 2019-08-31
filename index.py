@@ -3,6 +3,7 @@ import time
 import multiprocessing
 import os
 import random
+from scapy.all import *
 no_of_process = 2
 list_process = []
 host = "144.217.100.106"
