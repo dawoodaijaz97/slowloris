@@ -4,7 +4,7 @@ import random
 seq = 12345
 dest = "35.193.17.254"
 sport = 1040
-dport = 8080
+dport = 80
 syn = IP(dst=dest) / TCP(dport=80, flags='S')
 max = 20
 counter = 0
