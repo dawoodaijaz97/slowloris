@@ -7,7 +7,7 @@ ip = "35.193.17.254"
 
 sport = int(randint(1025, 65535))
 dport = 8080
-seq = randint()
+seq = randint(0,110000)
 
 syn = IP(dst=ip) / TCP(dport=dport, sport=sport, flags='S', seq=seq)
 synack = sr1(syn)
