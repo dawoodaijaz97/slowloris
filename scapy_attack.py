@@ -18,6 +18,6 @@ seq = synack[TCP].ack
 ack = synack[TCP].seq + 1
 
 payload = "GET / HTTP/1.1\r\nHost: " + y + "\r\n\r\n"
-request = IP(dst=ip) / TCP(dport=dport, sport=sport, flags='A', seq=seq, ack=ack) / Raw(ensure_bytes(payload))
+request = IP(dst=ip) / TCP(dport=dport, sport=sport, flags='A', seq=seq, ack=ack) / Raw(payload))
 ans, unans = sr(request)
 ans.summary()
