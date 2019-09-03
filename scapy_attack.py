@@ -1,22 +1,23 @@
 from scapy.all import *
-import random
+from random import randint
 
 x = "instance2mymachines.xyz"
 y = "www.instance2mymachines.xyz"
+ip = "35.193.17.254"
 
-syn = IP(dst=y) / TCP(dport=8080, flags='S')
+sport = int(randint(1025, 65535))
+dport = 8080
+seq = randint()
 
-print(syn.__repr__())
+syn = IP(dst=ip) / TCP(dport=dport, sport=sport, flags='S', seq=seq)
+synack = sr1(syn)
 
-syn_ack = sr1(syn)
+print(synack.summary())
 
-print(syn_ack.__repr__())
+seq = synack[TCP].ack
+ack = synack[TCP].seq + 1
 
-getStr = 'GET / HTTP/1.1\r\nHost: www.instance2mymachines.xyz\r\n\r\n'
-request = IP(dst=y) / TCP(dport=8080, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1, flags='A') / getStr
-
-reply,unans = sr1(request)
-
-reply.summary()
-
-print(reply.__repr__())
+payload = "GET / HTTP/1.1\r\nHost: " + y + "\r\n\r\n"
+request = IP(dst=ip) / TCP(dport=dport, sport=sport, flags='A', seq=seq, ack=ack) / Raw(ensure_bytes(payload))
+ans, unans = sr(request)
+ans.summary()
