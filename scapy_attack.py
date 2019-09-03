@@ -4,18 +4,17 @@ import random
 x = "instance2mymachines.xyz"
 y = "www.instance2mymachines.xyz"
 
-load_layer("http")
+syn = IP(dst='www.google.com') / TCP(dport=80, flags='S')
 
-http_request(y, "/", display=True)
-req = HTTP()/HTTPRequest(
-    Accept_Encoding=b'gzip, deflate',
-    Cache_Control=b'no-cache',
-    Connection=b'keep-alive',
-    Host=b'www.instance2mymachines.xyz',
-    Pragma=b'no-cache'
-)
-a = TCP_client.tcplink(HTTP,y, 8080)
-answser = a.sr1(req)
-a.close()
-with open("www.instance2mymachines.xyz.html", "wb") as file:
-    file.write(answser.load)
+print(syn.__repr__())
+
+syn_ack = sr1(syn)
+
+print(syn_ack.__repr__())
+
+getStr = 'GET / HTTP/1.1\r\nHost: www.google.com\r\n\r\n'
+request = IP(dst='www.google.com') / TCP(dport=80, sport=syn_ack[TCP].dport,seq=syn_ack[TCP].ack, ack=syn_ack[TCP].seq + 1, flags='A') / getStr
+
+reply = sr1(request)
+
+print(reply.__repr__())
