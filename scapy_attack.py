@@ -13,7 +13,7 @@ print ("IP layer prepared: ", i.summary())
 
 t = TCP()
 t.dport = dport
-t.sport = sp
+t.sport = 4000
 t.flags = "S"
 print("Sending TCP SYN Packet: ", t.summary())
 ans = sr1(i/t)
