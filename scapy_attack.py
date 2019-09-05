@@ -6,8 +6,21 @@ y = "www.instance2mymachines.xyz"
 ip = "35.193.17.254"
 dport = 8080
 
-request = "GET / HTTP/1.1\r\nHost: " + y + ":8080\r\nUser-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1\r\n\r\n"
-p = IP(dst=ip) / TCP(dport=dport) / request
-out = sr1(p)
-if out:
-    out.show()
+
+i = IP()
+i.dst = ip
+print ("IP layer prepared: ", i.summary())
+
+t = TCP()
+t.dport = dport
+t.sport = sp
+t.flags = "S"
+print("Sending TCP SYN Packet: ", t.summary())
+ans = sr1(i/t)
+print("Reply was: ",ans.summary())
+
+t.seq = ans.ack
+t.ack = ans.seq + 1
+t.flags = "A"
+print("Sending TCP ACK Packet: ", t.summary())
+ans = sr(i/t/"X")
