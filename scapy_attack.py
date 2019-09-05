@@ -10,7 +10,7 @@ numgets = 1000
 
 i = IP()
 i.dst = ip
-i.src = "35.202.193.2"
+i.src = "144.217.100.108"
 print("IP layer prepared: ", i.summary())
 
 for s in range(sp, sp + numgets - 1):
