@@ -4,7 +4,7 @@ import ipaddress
 import random
 from scapy.all import *
 
-no_of_process = 1
+no_of_process = 22
 list_process = []
 host = "144.217.100.106"
 port = 80
