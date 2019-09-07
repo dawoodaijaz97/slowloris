@@ -23,7 +23,7 @@ def attack():
         if block1 != "10" and block1 != "172" and block1 != "192":
             break
 
-    ip = block1 + "." + block2 + "." + block3 + "." + block4 + "\\8"
+    ip = block1 + "." + block2 + "." + block3 + "." + block4 + "\8"
     print(f"Network:{ip}")
 
     ip_network = ipaddress.ip_network(ip)
