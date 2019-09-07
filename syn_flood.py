@@ -21,12 +21,11 @@ def attack():
             break
 
     ip = block1 + ".0.0.0/8"
-    print(f"Network:{ip}")
 
     ip_network = ipaddress.ip_network(ip)
 
     for ip in ip_network:
-        print(ip.__str__())
+
         p = IP()
         p.src = ip.__str__()
         p.dst = host
