@@ -16,7 +16,7 @@ def attack():
     block3 = str(random.randint(10, 255))
     block4 = str(random.randint(10, 255))
 
-    ip = block1 + block2 + block3 + block4 + "\\8"
+    ip = block1 + "." + block2 + "." + block3 + "." + block4 + "\\8"
 
     print(ip)
 
